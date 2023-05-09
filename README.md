@@ -1,6 +1,8 @@
 # GA4 Attribution Looker Block
 
-This Looker Block contains LookML and SQL code for building rules-based attribution models using Google Analytics 4 (GA4) event data. The code provides first-click, linear, time-decay, and last-click marketing attribution models along with first paid click, last paid click, and last non-direct click models.
+This Looker Block contains LookML and SQL code for building rules-based attribution models using Google Analytics 4 (GA4) event data. The code provides first-click, linear, time-decay, and last-click marketing attribution models along with first paid click, last paid click, and last non-direct click models, as described in [this blog article](https://www.rittmananalytics.com/blog/2023/5/9/building-your-own-ga4-rules-based-marketing-attribution-models-using-google-bigquery-andnbsplooker).
+
+![/img/screenshot.png](https://github.com/rittmananalytics/ga4_marketing_attribution_looker_block/blob/master/img/screenshot.png)
 
 ## Attribution Models
 
@@ -18,7 +20,17 @@ This Looker Block contains LookML and SQL code for building rules-based attribut
 
 The code in this Looker Block sources GA4 event data from the Google BigQuery Sample Dataset and provides an attribution dataset that can be used as a data source for Looker Studio, Preset, Metabase, or any other BigQuery-compatible BI tool. The code outputs one row per converter conversion cycle per attribution model with columns for each of the measures (conversions, conversion value, etc.).
 
-The Looker dashboard provided in the Looker Block allows users to choose which attribution model is used to attribute conversions and conversion value, along with a drop-down selector for the dimension by which those conversions are visualized. The Looker explore provided by the Looker block provides access to a wider set of breakdown dimensions based on default GA4 event properties.
+This particular set of attribution models was designed for B2C-type businesses where a customer first opens an account, requests a trial or performs a once-only activity that you want to attribute value for, which is then followed by one or more purchase conversions each of which needs to be attributed using its own “conversion” or “purchase” cycle.
+
+![Example Purchase Cycles](https://github.com/rittmananalytics/ga4_marketing_attribution_looker_block/blob/master/img/cycle.png)
+
+The Looker dashboard provided in the Looker Block allows users to choose which attribution model is used to attribute conversions and conversion value, along with a drop-down selector for the dimension by which those conversions are visualized. 
+
+![Model and Breakdown Dimension Selectors](https://github.com/rittmananalytics/ga4_marketing_attribution_looker_block/blob/master/img/selectors.png)
+
+The Looker explore provided by the Looker block provides access to a wider set of breakdown dimensions based on default GA4 event properties.
+
+![Looker Explore](https://github.com/rittmananalytics/ga4_marketing_attribution_looker_block/blob/master/img/explore.png)
 
 ## How to Use
 
