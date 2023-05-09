@@ -36,7 +36,7 @@ The Looker explore provided by the Looker block provides access to a wider set o
 
 The code in this Looker Block can be used as is with modifications for your own choice of attribution events, data export location, and reporting needs. The code is available in a public Github repo and can be cloned, forked, reused, or otherwise adapted for your own use. 
 
-If you need help adapting this example code or building out your analytics capabilities and data team using a modern, flexible, and modular data stack, contact Rittman Analytics to organize a 100%-free, no-obligation call. We would be happy to help you. 
+If you need help adapting this example code or building out your analytics capabilities and data team using a modern, flexible, and modular data stack, [contact Rittman Analytics](https://calendly.com/markrittman/initial-discovery-call-with-mark-rittman) to organize a 100%-free, no-obligation call. We would be happy to help you. 
 
 ## Contact Us
 
