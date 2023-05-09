@@ -1,5 +1,3 @@
-Sure, here's an updated version of the `README.md` file for your Looker Block repository that includes a table listing the different attribution models and their typical use cases:
-
 # GA4 Attribution Looker Block
 
 This Looker Block contains LookML and SQL code for building rules-based attribution models using Google Analytics 4 (GA4) event data. The code provides first-click, linear, time-decay, and last-click marketing attribution models along with first paid click, last paid click, and last non-direct click models.
