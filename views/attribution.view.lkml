@@ -61,7 +61,7 @@ view: attribution {
     geo.region,
     geo.city
   FROM
-    `bigquery-public-data.ga4_obfuscated_sample_ecommerce.events_*` -- modify to your project
+    `@{SCHEMA_NAME}.@{GA4_TABLE_NAME}` -- modify to your project
     ),
   id_stitching AS (
   SELECT
@@ -152,7 +152,7 @@ view: attribution {
       WHERE
         KEY = 'ga_session_id')) AS events
   FROM
-    `bigquery-public-data.ga4_obfuscated_sample_ecommerce.events_*` s -- modify to your project
+    `@{SCHEMA_NAME}.@{GA4_TABLE_NAME}` s -- modify to your project
   WHERE
     event_name = 'session_start' ),
   user_stitched_sessions AS (
@@ -182,18 +182,18 @@ view: attribution {
     SELECT
       *,
       FIRST_VALUE(CASE
-          WHEN event_type = 'add_payment_info' THEN event_id
+          WHEN event_type = '@{GA4_USER_REG_EVENT}' THEN event_id
       END
         IGNORE NULLS) OVER (PARTITION BY blended_user_id ORDER BY event_ts ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS first_registration_event_id,
       FIRST_VALUE(CASE
-          WHEN event_type='purchase' THEN event_id
+          WHEN event_type='@{GA4_PURCHASE_EVENT}' THEN event_id
       END
         IGNORE NULLS) OVER (PARTITION BY blended_user_id ORDER BY event_ts ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING ) AS first_order_event_id
     FROM
       user_stitched_events )
   WHERE
-    event_type = 'purchase'
-    OR (event_type='add_payment_info'
+    event_type = '@{GA4_PURCHASE_EVENT}'
+    OR (event_type='@{GA4_USER_REG_EVENT}'
       AND event_id = first_registration_event_id) ),
   converting_events AS (
   SELECT
@@ -202,43 +202,43 @@ view: attribution {
     event_type,
     order_id AS order_id,
     CASE
-      WHEN event_type='purchase' AND event_id = first_order_event_id THEN order_value
+      WHEN event_type='@{GA4_PURCHASE_EVENT}' AND event_id = first_order_event_id THEN order_value
     ELSE
     0
   END
     AS first_order_revenue,
     CASE
-      WHEN event_type='purchase' AND event_id != first_order_event_id THEN order_value
+      WHEN event_type='@{GA4_PURCHASE_EVENT}' AND event_id != first_order_event_id THEN order_value
     ELSE
     0
   END
     AS repeat_order_revenue,
     CASE
-      WHEN event_type IN ('purchase' ) THEN 1
+      WHEN event_type IN ('@{GA4_PURCHASE_EVENT}' ) THEN 1
     ELSE
     0
   END
     AS count_conversions,
     CASE
-      WHEN event_type='purchase' AND event_id = first_order_event_id THEN 1
+      WHEN event_type='@{GA4_PURCHASE_EVENT}' AND event_id = first_order_event_id THEN 1
     ELSE
     0
   END
     AS count_first_order_conversions,
     CASE
-      WHEN event_type='purchase' AND event_id != first_order_event_id THEN 1
+      WHEN event_type='@{GA4_PURCHASE_EVENT}' AND event_id != first_order_event_id THEN 1
     ELSE
     0
   END
     AS count_repeat_order_conversions,
     CASE
-      WHEN event_type = 'purchase' THEN 1
+      WHEN event_type = '@{GA4_PURCHASE_EVENT}' THEN 1
     ELSE
     0
   END
     AS count_order_conversions,
     CASE
-      WHEN event_type='add_payment_info' AND event_id = first_registration_event_id THEN 1
+      WHEN event_type='@GA4_USER_REG_EVENT' AND event_id = first_registration_event_id THEN 1
     ELSE
     0
   END
@@ -458,8 +458,8 @@ view: attribution {
     SELECT
     *,
     MAX(session_day_number) OVER (PARTITION BY blended_user_id, user_conversion_cycle) - session_day_number AS days_before_conversion,
-    (MAX(session_day_number) OVER (PARTITION BY blended_user_id, user_conversion_cycle) - session_day_number )<= 30 AS is_within_attribution_lookback_window,
-    (MAX(session_day_number) OVER (PARTITION BY blended_user_id, user_conversion_cycle) - session_day_number ) <= 7 AS is_within_attribution_time_decay_days_window
+    (MAX(session_day_number) OVER (PARTITION BY blended_user_id, user_conversion_cycle) - session_day_number )<= @{LOOKBACK_WINDOW} AS is_within_attribution_lookback_window,
+    (MAX(session_day_number) OVER (PARTITION BY blended_user_id, user_conversion_cycle) - session_day_number ) <= @{TIME_DECAY_WINDOW} AS is_within_attribution_time_decay_days_window
   FROM
     touchpoint_and_converting_sessions_labelled_with_conversion_number_and_conversion_cycles_and_day_number ),
   /* Time-decay attribution is a multi-touch attribution model that gives some credit to all the channels that led to your customer converting,
@@ -470,7 +470,7 @@ view: attribution {
   SELECT
     *,
   IF
-    (is_within_attribution_time_decay_days_window, POW(2,days_before_conversion-1)/NULLIF(7,0),NULL) AS time_decay_score,
+    (is_within_attribution_time_decay_days_window, POW(2,days_before_conversion-1)/NULLIF(@{TIME_DECAY_WINDOW},0),NULL) AS time_decay_score,
   IF
     (conversion_session,1,POW(2, (days_before_conversion - 1))) AS weighting,
   IF
