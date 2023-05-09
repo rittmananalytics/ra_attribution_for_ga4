@@ -43,5 +43,3 @@ If you need help adapting this example code or building out your analytics capab
 Rittman Analytics is a boutique data analytics consultancy and a Google Cloud Platform partner with many years of experience working with BigQuery, GA, and Looker delivering marketing attribution and other modern data stack implementations.
 
 For more information, visit our website at [https://rittmananalytics.com/](https://rittmananalytics.com/) or contact us at [info@rittmananalytics.com](mailto:info@rittmananalytics.com).
-
-We look forward to hearing from you!
