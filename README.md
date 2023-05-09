@@ -24,7 +24,7 @@ This particular set of attribution models was designed for B2C-type businesses w
 
 ![Example Purchase Cycles](https://github.com/rittmananalytics/ga4_marketing_attribution_looker_block/blob/master/img/cycle.png)
 
-The Looker dashboard provided in the Looker Block allows users to choose which attribution model is used to attribute conversions and conversion value, along with a drop-down selector for the dimension by which those conversions are visualized. 
+The Looker dashboard provided in the Looker Block allows users to choose which attribution model is used to attribute conversions and conversion value, along with a drop-down selector for the dimension by which those conversions are visualized.
 
 ![Model and Breakdown Dimension Selectors](https://github.com/rittmananalytics/ga4_marketing_attribution_looker_block/blob/master/img/selectors.png)
 
@@ -34,9 +34,9 @@ The Looker explore provided by the Looker block provides access to a wider set o
 
 ## How to Use
 
-The code in this Looker Block can be used as is with modifications for your own choice of attribution events, data export location, and reporting needs. The code is available in a public Github repo and can be cloned, forked, reused, or otherwise adapted for your own use. 
+The code in this Looker Block can be used as is with modifications for your own choice of attribution events, data export location, and reporting needs. The code is available in a public Github repo and can be cloned, forked, reused, or otherwise adapted for your own use.
 
-Default values for conversion event names, schema and table names and the name of your Google BigQuery connection in Looker are contained with the manifest file as a set of constant definitions. Edit these to reflect the connection details and project/dataset/table name appropriate for your GA4 export data, and amend the GA4_USER_REG_EVENT, GA4_PURCHASE_EVENT, TIME_DECAY_WINDOW and LOOKBACK_WINDOW constant values to reflect your own initial registration event name, purchase event name (if different from the GA4 ecommerce default), time decay attribution model window (days) and your attribution lookback window (days).
+Default values for conversion event names, schema and table names and the name of your Google BigQuery connection in Looker are contained with the [manifest file](/manifest.lkml) as a set of constant definitions. Edit these to reflect the connection details and project/dataset/table name appropriate for your GA4 export data, and amend the GA4_USER_REG_EVENT, GA4_PURCHASE_EVENT, TIME_DECAY_WINDOW and LOOKBACK_WINDOW constant values to reflect your own initial registration event name, purchase event name (if different from the GA4 ecommerce default), time decay attribution model window (days) and your attribution lookback window (days).
 
 ```
 constant: CONNECTION_NAME {
@@ -73,10 +73,10 @@ constant: TIME_DECAY_WINDOW {
 constant: LOOKBACK_WINDOW {
   value: "30"
   export: override_optional
-  
+
 ```
 
-If you need help adapting this example code or building out your analytics capabilities and data team using a modern, flexible, and modular data stack, [contact Rittman Analytics](https://calendly.com/markrittman/initial-discovery-call-with-mark-rittman) to organize a 100%-free, no-obligation call. We would be happy to help you. 
+If you need help adapting this example code or building out your analytics capabilities and data team using a modern, flexible, and modular data stack, [contact Rittman Analytics](https://calendly.com/markrittman/initial-discovery-call-with-mark-rittman) to organize a 100%-free, no-obligation call. We would be happy to help you.
 
 ## Contact Us
 
