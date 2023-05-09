@@ -36,6 +36,46 @@ The Looker explore provided by the Looker block provides access to a wider set o
 
 The code in this Looker Block can be used as is with modifications for your own choice of attribution events, data export location, and reporting needs. The code is available in a public Github repo and can be cloned, forked, reused, or otherwise adapted for your own use. 
 
+Default values for conversion event names, schema and table names and the name of your Google BigQuery connection in Looker are contained with the manifest file as a set of constant definitions. Edit these to reflect the connection details and project/dataset/table name appropriate for your GA4 export data, and amend the GA4_USER_REG_EVENT, GA4_PURCHASE_EVENT, TIME_DECAY_WINDOW and LOOKBACK_WINDOW constant values to reflect your own initial registration event name, purchase event name (if different from the GA4 ecommerce default), time decay attribution model window (days) and your attribution lookback window (days).
+
+```
+constant: CONNECTION_NAME {
+  value: "ra_dw_prod"
+  export: override_required
+}
+
+## Used in ga_sessions.view sql_table_name
+constant: SCHEMA_NAME {
+  value: "bigquery-public-data.ga4_obfuscated_sample_ecommerce"
+  export: override_optional
+}
+
+constant: GA4_TABLE_NAME {
+  value: "events_*"
+  export: override_optional
+}
+
+constant: GA4_USER_REG_EVENT {
+  value: "add_payment_info"
+  export: override_optional
+}
+
+constant: GA4_PURCHASE_EVENT {
+  value: "purchase"
+  export: override_optional
+}
+
+constant: TIME_DECAY_WINDOW {
+  value: "7"
+  export: override_optional
+}
+
+constant: LOOKBACK_WINDOW {
+  value: "30"
+  export: override_optional
+  
+```
+
 If you need help adapting this example code or building out your analytics capabilities and data team using a modern, flexible, and modular data stack, [contact Rittman Analytics](https://calendly.com/markrittman/initial-discovery-call-with-mark-rittman) to organize a 100%-free, no-obligation call. We would be happy to help you. 
 
 ## Contact Us
