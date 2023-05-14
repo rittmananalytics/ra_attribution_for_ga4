@@ -238,7 +238,7 @@ view: attribution {
   END
     AS count_order_conversions,
     CASE
-      WHEN event_type='@GA4_USER_REG_EVENT' AND event_id = first_registration_event_id THEN 1
+      WHEN event_type='@{GA4_USER_REG_EVENT}' AND event_id = first_registration_event_id THEN 1
     ELSE
     0
   END
