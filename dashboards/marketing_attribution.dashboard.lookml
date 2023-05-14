@@ -2,6 +2,7 @@
   title: Marketing Attribution
   layout: newspaper
   preferred_viewer: dashboards-next
+  crossfilter_enabled: true
   description: ''
   preferred_slug: fbdcNjJE885uw66dDHWi3j
   elements:
@@ -89,9 +90,9 @@
     series_types: {}
     title_hidden: true
     listen:
-      Attribution Model: attribution.attribution_model
       Breakdown By: attribution.breakdown_by
       Session Date: attribution.session_date
+      Attribution Model: attribution.attribution_model
     row: 0
     col: 5
     width: 19
@@ -192,9 +193,9 @@
     label_type: labPer
     title_hidden: true
     listen:
-      Attribution Model: attribution.attribution_model
       Breakdown By: attribution.breakdown_by
       Session Date: attribution.session_date
+      Attribution Model: attribution.attribution_model
     row: 19
     col: 0
     width: 6
@@ -287,9 +288,9 @@
     series_types: {}
     hidden_pivots: {}
     listen:
-      Attribution Model: attribution.attribution_model
       Breakdown By: attribution.breakdown_by
       Session Date: attribution.session_date
+      Attribution Model: attribution.attribution_model
     row: 12
     col: 12
     width: 6
@@ -381,9 +382,9 @@
     defaults_version: 1
     series_types: {}
     listen:
-      Attribution Model: attribution.attribution_model
       Breakdown By: attribution.breakdown_by
       Session Date: attribution.session_date
+      Attribution Model: attribution.attribution_model
     row: 12
     col: 0
     width: 6
@@ -487,9 +488,9 @@
     hidden_pivots: {}
     title_hidden: true
     listen:
-      Attribution Model: attribution.attribution_model
       Breakdown By: attribution.breakdown_by
       Session Date: attribution.session_date
+      Attribution Model: attribution.attribution_model
     row: 19
     col: 6
     width: 6
@@ -583,9 +584,9 @@
     series_types: {}
     hidden_pivots: {}
     listen:
-      Attribution Model: attribution.attribution_model
       Breakdown By: attribution.breakdown_by
       Session Date: attribution.session_date
+      Attribution Model: attribution.attribution_model
     row: 12
     col: 6
     width: 6
@@ -681,9 +682,9 @@
     defaults_version: 1
     series_types: {}
     listen:
-      Attribution Model: attribution.attribution_model
       Breakdown By: attribution.breakdown_by
       Session Date: attribution.session_date
+      Attribution Model: attribution.attribution_model
     row: 12
     col: 18
     width: 6
@@ -786,9 +787,9 @@
     series_types: {}
     title_hidden: true
     listen:
-      Attribution Model: attribution.attribution_model
       Breakdown By: attribution.breakdown_by
       Session Date: attribution.session_date
+      Attribution Model: attribution.attribution_model
     row: 19
     col: 12
     width: 6
@@ -893,9 +894,9 @@
     label_type: labPer
     title_hidden: true
     listen:
-      Attribution Model: attribution.attribution_model
       Breakdown By: attribution.breakdown_by
       Session Date: attribution.session_date
+      Attribution Model: attribution.attribution_model
     row: 19
     col: 18
     width: 6
@@ -946,12 +947,14 @@
     x_axis_zoom: true
     y_axis_zoom: true
     series_types: {}
+    series_labels:
+      "<Other> - attribution.total_first_order_revenue": "<Other>"
     defaults_version: 1
     hidden_pivots: {}
     listen:
-      Attribution Model: attribution.attribution_model
       Breakdown By: attribution.breakdown_by
       Session Date: attribution.session_date
+      Attribution Model: attribution.attribution_model
     row: 4
     col: 0
     width: 12
@@ -964,7 +967,7 @@
     fields: [attribution.session_date, attribution.total_repeat_order_revenue, attribution.breakdown_dimension]
     pivots: [attribution.breakdown_dimension]
     fill_fields: [attribution.session_date]
-    sorts: [attribution.session_date desc]
+    sorts: [attribution.breakdown_dimension, attribution.session_date desc]
     limit: 500
     column_limit: 50
     x_axis_gridlines: false
@@ -1002,12 +1005,14 @@
     x_axis_zoom: true
     y_axis_zoom: true
     series_types: {}
+    series_labels:
+      "<Other> - attribution.total_repeat_order_revenue": "(Other)"
     defaults_version: 1
     hidden_pivots: {}
     listen:
-      Attribution Model: attribution.attribution_model
       Breakdown By: attribution.breakdown_by
       Session Date: attribution.session_date
+      Attribution Model: attribution.attribution_model
     row: 4
     col: 12
     width: 12
@@ -1021,12 +1026,140 @@
     col: 0
     width: 5
     height: 4
+  - title: Purchases by Attribution Model
+    name: Purchases by Attribution Model
+    model: attribution
+    explore: attribution
+    type: looker_column
+    fields: [attribution.breakdown_dimension, attribution.total_first_order_conversions,
+      attribution.total_repeat_order_conversions, attribution.attribution_model]
+    pivots: [attribution.attribution_model]
+    sorts: [attribution.attribution_model, attribution.total_first_order_conversions
+        desc 0]
+    limit: 500
+    column_limit: 50
+    dynamic_fields: [{category: table_calculation, expression: "${attribution.total_first_order_conversions}+${attribution.total_repeat_order_conversions}",
+        label: Total Purchases, value_format: !!null '', value_format_name: decimal_0,
+        _kind_hint: measure, table_calculation: total_purchases, _type_hint: number}]
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    color_application:
+      collection_id: da8306b5-3b46-48aa-9ead-a3b32292f35c
+      palette_id: 75905e81-dadc-472c-b9a2-a201f788d55d
+      options:
+        steps: 5
+    x_axis_zoom: true
+    y_axis_zoom: true
+    defaults_version: 1
+    hidden_pivots: {}
+    hidden_fields: [attribution.total_first_order_conversions, attribution.total_repeat_order_conversions]
+    listen:
+      Breakdown By: attribution.breakdown_by
+      Session Date: attribution.session_date
+    row: 23
+    col: 12
+    width: 12
+    height: 8
+  - title: Repeat Purchases
+    name: Repeat Purchases (2)
+    model: attribution
+    explore: attribution
+    type: looker_column
+    fields: [attribution.breakdown_dimension, attribution.user_conversion_cycle, attribution.total_first_order_conversions,
+      attribution.total_repeat_order_conversions]
+    pivots: [attribution.breakdown_dimension]
+    sorts: [attribution.breakdown_dimension, attribution.user_conversion_cycle]
+    limit: 500
+    column_limit: 50
+    dynamic_fields: [{category: table_calculation, expression: "${attribution.total_first_order_conversions}+${attribution.total_repeat_order_conversions}",
+        label: Total Purchases, value_format: !!null '', value_format_name: decimal_0,
+        _kind_hint: measure, table_calculation: total_purchases, _type_hint: number},
+      {category: table_calculation, expression: "${total_purchases}/sum(pivot_row(${total_purchases}))",
+        label: "% of Total Purchases", value_format: !!null '', value_format_name: percent_0,
+        _kind_hint: measure, table_calculation: of_total_purchases, _type_hint: number}]
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: normal
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: false
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    color_application:
+      collection_id: da8306b5-3b46-48aa-9ead-a3b32292f35c
+      palette_id: 75905e81-dadc-472c-b9a2-a201f788d55d
+      options:
+        steps: 5
+    x_axis_zoom: true
+    y_axis_zoom: true
+    hidden_series: []
+    series_labels:
+      "<Other> - of_total_purchases": "<Other>"
+    defaults_version: 1
+    hidden_pivots:
+      "(data deleted)":
+        measure_names:
+        - total_purchases
+    hidden_fields: [attribution.total_first_order_conversions, attribution.total_repeat_order_conversions,
+      total_purchases]
+    listen:
+      Breakdown By: attribution.breakdown_by
+      Session Date: attribution.session_date
+      Attribution Model: attribution.attribution_model
+    row: 23
+    col: 0
+    width: 12
+    height: 8
   filters:
   - name: Attribution Model
     title: Attribution Model
     type: field_filter
     default_value: Last Click
-    allow_multiple_values: true
+    allow_multiple_values: false
     required: false
     ui_config:
       type: advanced
