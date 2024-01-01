@@ -2,7 +2,7 @@
 
 This Looker Block contains LookML and SQL code for building rules-based attribution models using Google Analytics 4 (GA4) event data. The code provides first-click, linear, time-decay, and last-click marketing attribution models along with first paid click, last paid click, and last non-direct click models, as described in [this blog article](https://www.rittmananalytics.com/blog/2023/5/9/building-your-own-ga4-rules-based-marketing-attribution-models-using-google-bigquery-andnbsplooker).
 
-![/img/screenshot.png](https://github.com/rittmananalytics/ga4_marketing_attribution_looker_block/blob/master/img/screenshot.png)
+![Screenshot](https://github.com/rittmananalytics/ga4_marketing_attribution_looker_block/blob/master/img/screenshot.png)
 
 ## Attribution Models
 
